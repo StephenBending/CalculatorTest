@@ -44,7 +44,7 @@ namespace CalculatorTest
 
                 if (validSelection(operation, validInputs))
                 {
-                    Console.WriteLine("\nPlease enter two number seperated by a comma (ex. 5,6):");
+                    Console.WriteLine("\nPlease enter two numbers seperated by a comma (ex. 5,6):");
                     numbers = processNumbers(Console.ReadLine());
                     try
                     {

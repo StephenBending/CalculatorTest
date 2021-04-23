@@ -11,9 +11,11 @@ namespace CalculatorApi.Implementations
     {
         private readonly string _host;
         private readonly HttpClient _client;
+        private readonly IDiagnostic _diagnostic;
 
-        public HttpCalculator()
+        public HttpCalculator(IDiagnostic diagnostic)
         {
+            _diagnostic = diagnostic;
             _host = "https://localhost:44331/calculator";
             _client = new HttpClient();
         }
@@ -24,6 +26,8 @@ namespace CalculatorApi.Implementations
 
             //Send to web server via HttpClient
             string connection = _host + "/add/" + input;
+            try { _diagnostic.Log($"Calculating {start} + {amount} using web API."); }
+            catch { }
 
             return GetRequest(connection);
         }
@@ -34,6 +38,8 @@ namespace CalculatorApi.Implementations
 
             //Send to web server via HttpClient
             string connection = _host + "/divide/" + input;
+            try { _diagnostic.Log($"Calculating {start} / {by} using web API."); }
+            catch { }
 
             return GetRequest(connection);
         }
@@ -44,6 +50,8 @@ namespace CalculatorApi.Implementations
 
             //Send to web server via HttpClient
             string connection = _host + "/multiply/" + input;
+            try { _diagnostic.Log($"Calculating {start} * {by} using web API."); }
+            catch { }
 
             return GetRequest(connection);
         }
@@ -54,6 +62,8 @@ namespace CalculatorApi.Implementations
 
             //Send to web server via HttpClient
             string connection = _host + "/subtract/" + input;
+            try { _diagnostic.Log($"Calculating {start} - {amount} using web API."); }
+            catch { }
 
             return GetRequest(connection);
         }
@@ -63,11 +73,15 @@ namespace CalculatorApi.Implementations
             try
             {
                 string response = Task.Run(() => _client.GetStringAsync(connection)).Result;
+                try { _diagnostic.Log($"Calculation successful, result = {response}"); }
+                catch { }
                 return int.Parse(response);
             }
             catch
             {
                 //return 0;
+                try { _diagnostic.Log($"Calculation failed."); }
+                catch { }
                 throw new HttpRequestException("There was an error connecting to the server, it may be offline.");
             }
         }
