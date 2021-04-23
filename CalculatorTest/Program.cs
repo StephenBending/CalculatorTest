@@ -14,7 +14,9 @@ namespace CalculatorTest
         {
             var builder = new ContainerBuilder();
             //builder.RegisterType<DiagnosticConsole>().As<IDiagnostic>(); //Outputs to Console
-            builder.RegisterType<NullDiagnostic>().As<IDiagnostic>();      //Null, does not output at all
+            //builder.RegisterType<NullDiagnostic>().As<IDiagnostic>();      //Null, does not output at all
+            //builder.RegisterType<DiagnosticEF>().As<IDiagnostic>();
+            builder.RegisterType<DiagnosticSP>().As<IDiagnostic>();
 
             builder.RegisterType<SimpleCalculator>().As<ISimpleCalculator>();
             var container = builder.Build();

@@ -3,18 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Serilog;
-using Serilog.Core;
 
 namespace CalculatorApi
 {
-    public interface ISimpleCalculator
-    {
-        int Add(int start, int amount);
-        int Subtract(int start, int amount);
-        int Multiply(int start, int by);
-        int Divide(int start, int by);
-    }
 
     public class SimpleCalculator : ISimpleCalculator
     {
@@ -25,10 +16,11 @@ namespace CalculatorApi
             _diagnostic = diagnostic;
         }
 
+        /*
         private void Log(string log)
         {
 
-        }
+        }*/
 
         public int Add(int start, int amount)
         {
@@ -60,35 +52,6 @@ namespace CalculatorApi
             catch { }
 
             return start *by;
-        }
-    }
-
-    public interface IDiagnostic
-    {
-        void Log(string log);
-    }
-
-    public class DiagnosticConsole : IDiagnostic
-    {
-        Logger _logger;
-        public DiagnosticConsole()
-        {
-            _logger = new LoggerConfiguration()
-                .WriteTo.Console()
-                .CreateLogger();
-        }
-
-        public void Log(string log)
-        {
-            _logger.Information(log);
-        }
-    }
-
-    public class NullDiagnostic : IDiagnostic
-    {
-        public void Log(string log)
-        {
-            
         }
     }
 }
