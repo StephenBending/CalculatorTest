@@ -82,10 +82,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalcLog.cs" />
-    <Compile Include="IDiagnosticEF.cs" />
-    <Compile Include="IDiagnosticSP.cs" />
-    <Compile Include="ISimpleCalculator.cs" />
+    <Compile Include="Implementations\DiagnosticConsole.cs" />
+    <Compile Include="Implementations\DiagnosticEF.cs" />
+    <Compile Include="Implementations\DiagnosticSP.cs" />
+    <Compile Include="Interfaces\IDiagnostic.cs" />
+    <Compile Include="Interfaces\ISimpleCalculator.cs" />
+    <Compile Include="Implementations\SimpleCalculator.cs" />
     <Compile Include="LoggingContext.cs" />
+    <Compile Include="Implementations\NullDiagnostic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sysdiagram.cs" />
   </ItemGroup>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CalculatorApi
 {
-    public class IDiagnosticSP : IDiagnostic
+    public class DiagnosticSP : IDiagnostic
     {
         public void Log(string log)
         {
