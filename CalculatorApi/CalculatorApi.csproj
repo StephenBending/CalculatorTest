@@ -85,6 +85,7 @@
     <Compile Include="Implementations\DiagnosticConsole.cs" />
     <Compile Include="Implementations\DiagnosticEF.cs" />
     <Compile Include="Implementations\DiagnosticSP.cs" />
+    <Compile Include="Implementations\HttpCalculator.cs" />
     <Compile Include="Interfaces\IDiagnostic.cs" />
     <Compile Include="Interfaces\ISimpleCalculator.cs" />
     <Compile Include="Implementations\SimpleCalculator.cs" />

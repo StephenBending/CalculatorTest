@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using CalculatorApi;
+using CalculatorApi.Implementations;
 
 namespace CalculatorTest
 {
@@ -18,7 +20,9 @@ namespace CalculatorTest
             //builder.RegisterType<DiagnosticEF>().As<IDiagnostic>();
             builder.RegisterType<DiagnosticSP>().As<IDiagnostic>();
 
-            builder.RegisterType<SimpleCalculator>().As<ISimpleCalculator>();
+            //builder.RegisterType<SimpleCalculator>().As<ISimpleCalculator>();
+            builder.RegisterType<HttpCalculator>().As<ISimpleCalculator>();
+
             var container = builder.Build();
             ISimpleCalculator calc = container.Resolve<ISimpleCalculator>();//new SimpleCalculator();
 
@@ -33,7 +37,7 @@ namespace CalculatorTest
                     $"\nTo exit type \"exit\"");
                 operation = Console.ReadLine();
 
-                if(operation == "exit")
+                if (operation == "exit")
                 {
                     break;
                 }
@@ -42,8 +46,15 @@ namespace CalculatorTest
                 {
                     Console.WriteLine("\nPlease enter two number seperated by a comma (ex. 5,6):");
                     numbers = processNumbers(Console.ReadLine());
-                    result = processOperation(operation, numbers, calc);
-                    Console.WriteLine($"\nThe result of {numbers.Item1} {operation} {numbers.Item2} is {result}");
+                    try
+                    {
+                        result = processOperation(operation, numbers, calc);
+                        Console.WriteLine($"\nThe result of {numbers.Item1} {operation} {numbers.Item2} is {result}");
+                    }
+                    catch (HttpRequestException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                 }
                 else
                 {
@@ -57,7 +68,7 @@ namespace CalculatorTest
             switch (operation)
             {
                 case "a":
-                    return calc.Add(numbers.Item1,numbers.Item2);
+                    return calc.Add(numbers.Item1, numbers.Item2);
                 case "s":
                     return calc.Subtract(numbers.Item1, numbers.Item2);
                 case "m":
@@ -85,7 +96,7 @@ namespace CalculatorTest
             }
             else
             {
-                return Tuple.Create(0,0);
+                return Tuple.Create(0, 0);
             }
         }
     }

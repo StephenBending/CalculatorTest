@@ -9,7 +9,7 @@ namespace CalculatorApi.Implementations
 {
     public class HttpCalculator : ISimpleCalculator
     {
-        private readonly string _host; 
+        private readonly string _host;
         private readonly HttpClient _client;
 
         public HttpCalculator()
